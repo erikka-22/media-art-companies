@@ -1,86 +1,35 @@
 <template>
-  <v-sheet id="map"></v-sheet>
+  <v-app id="inspire">
+    <!-- <v-navigation-drawer v-model="drawer"> -->
+      <!--  -->
+    <!-- </v-navigation-drawer> -->
 
-  <v-container class="fill-height">
-    <v-responsive class="d-flex align-center text-center fill-height">
-      <!-- <v-img
-        contain
-        height="300"
-        src="@/assets/logo.svg"
-      />
+    <v-app-bar>
+      <!-- <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon> -->
 
-      <div class="text-body-2 font-weight-light mb-n1">Welcome to</div>
+      <v-toolbar-title>メディア芸術企業・団体マップ</v-toolbar-title>
+    </v-app-bar>
 
-      <h1 class="text-h2 font-weight-bold">Vuetify</h1>
-
-      <div class="py-14" /> -->
-
-      <!-- <v-row class="d-flex align-center justify-center">
-        <v-col cols="auto">
-          <v-btn
-            href="https://next.vuetifyjs.com/components/all/"
-            min-width="164"
-            rel="noopener noreferrer"
-            target="_blank"
-            variant="text"
-          >
-            <v-icon
-              icon="mdi-view-dashboard"
-              size="large"
-              start
-            />
-
-            Components
-          </v-btn>
-        </v-col>
-
-        <v-col cols="auto">
-          <v-btn
-            color="primary"
-            href="https://next.vuetifyjs.com/introduction/why-vuetify/#feature-guides"
-            min-width="228"
-            rel="noopener noreferrer"
-            size="x-large"
-            target="_blank"
-            variant="flat"
-          >
-            <v-icon
-              icon="mdi-speedometer"
-              size="large"
-              start
-            />
-
-            Get Started
-          </v-btn>
-        </v-col>
-
-        <v-col cols="auto">
-          <v-btn
-            href="https://community.vuetifyjs.com/"
-            min-width="164"
-            rel="noopener noreferrer"
-            target="_blank"
-            variant="text"
-          >
-            <v-icon
-              icon="mdi-account-group"
-              size="large"
-              start
-            />
-
-            Community
-          </v-btn>
-        </v-col>
-      </v-row> -->
-    </v-responsive>
-  </v-container>
+    <v-main>
+      <div id="map"></div>
+    </v-main>
+  </v-app>
 </template>
 
 <script setup lang="ts">
-  import {Loader} from '@googlemaps/js-api-loader'
+  import { Loader } from '@googlemaps/js-api-loader'
+  import { ref } from 'vue'
+
+  const drawer = ref(null)
+
+  const locationList = ref([])
+  const csvLat = 5
+  const csvLng = 6
+
+  // const importCsvFile
 
   const loader = new Loader({
-    apiKey: "AIzaSyBnhwoE07mtx6MdXMZ_cGOuPk9JZ6u4Hz0",
+    apiKey: "",
     version: "weekly",
     libraries: ["places"],
   })
@@ -96,7 +45,6 @@
   loader
     .load()
     .then((google) => {
-      // console.log('loaded')
       new google.maps.Map(document.getElementById("map"), mapOptions)
     })
     .catch(e => {
@@ -105,7 +53,7 @@
 </script>
 <style>
   #map {
-    height: 600px;
-    width: 600px;
+    height: 100%;
+    width: 100%;
   }
 </style>
