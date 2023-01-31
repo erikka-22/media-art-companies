@@ -29,7 +29,7 @@
   // const importCsvFile
 
   const loader = new Loader({
-    apiKey: "",
+    apiKey: import.meta.env.VITE_API_KEY,
     version: "weekly",
     libraries: ["places"],
   })
