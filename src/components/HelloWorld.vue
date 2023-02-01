@@ -19,14 +19,21 @@
 <script setup lang="ts">
   import { Loader } from '@googlemaps/js-api-loader'
   import { ref } from 'vue'
+  import { data } from './data/address_withlatlng.csv'
 
   const drawer = ref(null)
 
-  const locationList = ref([])
-  const csvLat = 5
-  const csvLng = 6
+  const locationList = []
+  const csvOptions = {
+    csvLat: 5,
+    csvLng: 6,
+  }
+  
+  const dropLocationPoints = () => {
 
-  // const importCsvFile
+  }
+
+  
 
   const loader = new Loader({
     apiKey: import.meta.env.VITE_API_KEY,
