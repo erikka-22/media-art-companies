@@ -12,18 +12,28 @@
 
     <v-main>
       <div id="map"></div>
+      <!-- <p>{{ store.state.locationList }}</p> -->
     </v-main>
   </v-app>
 </template>
 
-<script setup lang="ts">
+<!-- <script setup lang="ts"> -->
+<script setup>
   import { Loader } from '@googlemaps/js-api-loader'
-  import { ref } from 'vue'
-  import { data } from './data/address_withlatlng.csv'
+  import { ref, reactive } from 'vue'
+  import Papa from 'papaparse'
 
   const drawer = ref(null)
 
-  const locationList = []
+  const store = {
+    state: reactive({
+      locationList: {}
+    }),
+    setLocationList(newValue) {
+      this.state.locationList = newValue
+    }
+  }
+  
   const csvOptions = {
     csvLat: 5,
     csvLng: 6,
@@ -33,7 +43,14 @@
 
   }
 
-  
+  const parseCsv = Papa.parse('./src/assets/address_withlatlng.csv', {
+    download: true,
+    header: true,
+    complete: function(results){
+      store.setLocationList(results.data)
+    }
+  })
+  // console.log(store.state.locationList)
 
   const loader = new Loader({
     apiKey: import.meta.env.VITE_API_KEY,
