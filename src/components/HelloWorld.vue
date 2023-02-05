@@ -61,7 +61,7 @@
           }
         }
       })
-      console.log(locationList)
+      // console.log(locationList)
       store.setLocationList(locationList)
     }
   })
