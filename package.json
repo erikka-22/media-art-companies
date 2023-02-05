@@ -10,6 +10,7 @@
     "@googlemaps/js-api-loader": "^1.15.1",
     "@googlemaps/markerclusterer": "^2.0.15",
     "@mdi/font": "7.1.96",
+    "firebase": "^9.17.1",
     "papaparse": "^5.3.2",
     "roboto-fontface": "*",
     "ts-is-present": "^1.2.2",
