@@ -25,17 +25,21 @@
   import Papa from 'papaparse'
   import { isPresent, isDefined, isFilled } from 'ts-is-present'
 
-  interface LatLng {
-    lat: number,
-    lng: number
+  interface Location {
+    name: string,
+    url: string,
+    latlng: {
+      lat: number,
+      lng: number
+    }
   }
 
   const store = {
     state: reactive({
-      locationList: [] as Array<LatLng>,
+      locationList: [] as Array<Location>,
       drawer: false,
     }),
-    setLocationList(newValue: Array<LatLng>) {
+    setLocationList(newValue: Array<Location>) {
       this.state.locationList = newValue
     },
     setDrawer(newValue: boolean) {
@@ -47,14 +51,20 @@
     download: true,
     header: true,
     complete: function(results){
-      const latlng: Array<LatLng> = results.data.map(result => {
-        return {lat: Number(result['緯度']), lng: Number(result['経度'])}
+      const locationList: Array<Location> = results.data.map(result => {
+        return {
+          name: result['ラベル'],
+          url: result['アイテム'],
+          latlng: {
+            lat: Number(result['緯度']), 
+            lng: Number(result['経度'])
+          }
+        }
       })
-      console.log(latlng)
-      store.setLocationList(latlng)
+      console.log(locationList)
+      store.setLocationList(locationList)
     }
   })
-  // console.log(store.state.locationList)
 
   const loader = new Loader({
     apiKey: import.meta.env.VITE_API_KEY,
@@ -78,9 +88,18 @@
         mapOptions
       )
       const markers = store.state.locationList.map((position) => {
-        const marker = new google.maps.Marker({
-          position
+        const contentStr = '<a href="' + position['url'] + '" target=_blank>' + position['name'] + '</a>'
+        const infoWindow = new google.maps.InfoWindow({
+          content: contentStr
         })
+        const marker = new google.maps.Marker({
+          position: position['latlng']
+        })
+
+        marker.addListener("click", () => {
+          infoWindow.open(map, marker)
+        })
+
         return marker    
       })
       new MarkerClusterer({ markers, map})
