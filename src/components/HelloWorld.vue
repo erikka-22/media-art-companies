@@ -5,7 +5,7 @@
     <!-- </v-navigation-drawer> -->
 
     <v-app-bar>
-      <v-app-bar-nav-icon @click="store.setDrawer(!store.state.drawer)"></v-app-bar-nav-icon>
+      <!-- <v-app-bar-nav-icon @click="store.setDrawer(!store.state.drawer)"></v-app-bar-nav-icon> -->
 
       <v-toolbar-title>メディア芸術企業・団体マップ</v-toolbar-title>
     </v-app-bar>
