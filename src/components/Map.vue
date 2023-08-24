@@ -47,7 +47,7 @@
     }
   }  
   
-  const parseCsv = Papa.parse<any>('./src/assets/address_withlatlng.csv', {
+  const parseCsv = Papa.parse<any>(import.meta.env.VITE_FILE_PATH, {
     download: true,
     header: true,
     complete: function(results){

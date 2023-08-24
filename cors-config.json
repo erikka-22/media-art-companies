@@ -1,0 +1,10 @@
+[
+  {
+    "origin": ["https://media-art-companies.web.app/"],
+    "responseHeader": [
+      "Content-Type", "Access-Control-Allow-Origin"
+    ],
+    "method": ["GET"],
+    "maxAgeSeconds": 3600
+  }
+]
